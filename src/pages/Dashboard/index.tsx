@@ -33,14 +33,14 @@ function Dashboard() {
 
   async function handleAddFood(food: IFood) {
     try {
-      const foods = await api
+      const newFood = await api
         .post('/foods', {
           ...food,
           available: true,
         })
         .then((response) => response.data);
 
-      setFoods(foods);
+      setFoods((foods) => [...foods, newFood]);
     } catch (err) {
       console.log(err);
     }
@@ -93,6 +93,7 @@ function Dashboard() {
       />
 
       <FoodsContainer data-testid="foods-list">
+        {console.log('foods: ', foods)}
         {foods &&
           foods.map((food) => (
             <Food
